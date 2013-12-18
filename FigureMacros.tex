@@ -1,0 +1,43 @@
+% Commands for including a standard figure
+\newcommand{\singlefigure}[1]{
+	\includegraphics[bb=.1in .1in 7.45in 5.85in,width=3.9in,clip]{Images/#1}
+}
+\newcommand{\singlefigureall}[3]{
+\begin{figure}
+\begin{center}
+\singlefigure{#1}
+\end{center}
+\vspace{-.2 in}
+\caption{\small #2}
+\label{fig:#3}
+\end{figure}
+\vspace{-.285 in}
+}
+
+% Commands for including two plots side by side
+\newcommand{\halffigure}[1]{
+	\includegraphics[bb=.25in .1in 7.45in 5.85in,width=2.75in,clip]{Images/#1}
+}
+\newcommand{\doublespace}{\hspace{-.3 in}}
+%\newcommand{\doubletopspace}{\vspace{-.45 in}}
+%\newcommand{\doublebottomspace}{\vspace{-.3 in}}
+\newcommand{\doubletopspace}{\vspace{0 in}}
+\newcommand{\doublebottomspace}{\vspace{0 in}}
+
+\newcommand{\doublefigure}[2]{
+\doubletopspace
+\begin{center}
+\halffigure{#1}
+\doublespace
+\halffigure{#2}
+\end{center}
+\doublebottomspace
+}
+
+% Commands for including three plots side by side
+\newcommand{\onethirdfigure}[1]{
+	\includegraphics[bb=1.08in .32in 7.45in 5.5in,width=1.75in,clip]{Images/#1}
+}
+\newcommand{\onethirdspace}{\hspace{-.2 in}}
+\newcommand{\onethirdtopspace}{\vspace{-.45 in}}
+\newcommand{\onethirdbottomspace}{\vspace{-.3 in}}

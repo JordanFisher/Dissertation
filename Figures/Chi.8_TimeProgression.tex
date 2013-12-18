@@ -1,0 +1,39 @@
+\clearpage
+
+\newcommand{\threeplotchi}[1]{
+\onethirdtopspace
+\begin{center}
+\onethirdfigure{Chi.8/_2000/#1}
+\onethirdspace
+\onethirdfigure{Chi.8/_6000/#1}
+\onethirdspace
+\onethirdfigure{Chi.8/_18000/#1}
+\end{center}
+\onethirdbottomspace
+}
+
+\newcommand{\tvalues}{$t=.5$, $t=1.5$, $t=4.5$}
+
+\begin{figure}[p]
+\threeplotchi{_xx.png}
+\caption{\small $S_{xx}$ at times \tvalues.}
+\label{fig:TimeProgression_Chi.8_xx}
+\end{figure}
+
+\begin{figure}[p]
+\threeplotchi{_xy.png}
+\caption{\small $S_{xy}$ at times \tvalues.}
+\label{fig:TimeProgression_Chi.8_xy}
+\end{figure}
+
+\begin{figure}[p]
+\threeplotchi{_yy.png}
+\caption{\small $S_{yy}$ at times \tvalues.}
+\label{fig:TimeProgression_Chi.8_yy}
+\end{figure}
+
+\begin{figure}[p]
+\threeplotchi{_vorticity.png}
+\caption{\small Vorticity of the fluid velocity at times \tvalues.}
+\label{fig:TimeProgression_Chi.8_vorticity}
+\end{figure}

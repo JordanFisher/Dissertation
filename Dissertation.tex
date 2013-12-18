@@ -1,0 +1,58 @@
+% Root File for a UCSB Dissertation
+%
+%
+
+%\documentclass[12pt,twoside,draft]{ucthesis}
+\documentclass[12pt,oneside,final]{ucthesis}
+
+\usepackage{graphics,epsfig}%,slashbox}
+
+\input{Macros}
+\input{FigureMacros}
+\input{MethodologyInclude}
+
+%\renewcommand{\small}{}
+
+\begin{document}
+
+%% Front Matter:
+\input{Title}          % First Page
+\maketitle             % Make Title Page
+
+\begin{frontmatter}
+\approvalpage
+\copyrightpage
+\input{Dedicate}
+\input{Acknowledgements}
+\input{Vitae}
+%\input{Preface}
+\input{Abstract}
+\tableofcontents
+%\listoffigures
+%\listoftables
+\end{frontmatter}
+
+
+% the chapters
+
+% spacing in figures and tables and their captions can be
+% changed here (\ssp for single-space, empty for same as surrounding 
+% text); for this to work, the command \figsp has to be included
+% in every figure and table right after the \begin{figure}
+\def\figsp{\ssp}
+%\def\figsp{}
+
+
+\include{Intro}
+
+\ssp   % bibliography can be single-spaced for UC thesis format
+\bibliography{references}
+\bibliographystyle{abbrv}%{unsrt}%{alpha}{siam}{apalike}{ieeetr}{plain}{acm}{abbrv}
+%\bibliographystyle{IEEE-Alpha} 
+
+
+%\part*{\addcontentsline{toc}{part}{Appendices}Appendices}
+%\appendix
+%\include{Appendix}
+
+\end{document}

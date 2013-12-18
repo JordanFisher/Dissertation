@@ -1,0 +1,20 @@
+%
+%  Abstract
+%
+
+\begin{abstract}
+
+\addcontentsline{toc}{chapter}{Abstract}
+
+The Immersed Boundary Method introduced by Peskin is a popular technique for modeling interactions between a fluid and a dynamic immersed boundary. The method is well suited to a large range of  applications. In practice, however, numerical simulations are often hampered by time stepping constraints (stiffness) induced by strong tangential, interfacial forces. This stiffness leads to prohibitive computational costs in many applications. Since the introduction of the method much effort has been devoted to remove this limitation. This effort has led to a greater understanding of the origin of the stiffness constraint, as well as to the discovery of stable implicit and semi-implicit schemes that robustly remove stiffness. In practice, however, these implicit schemes pose a formidable non-linear system of equations to solve. The cost of solving the systems overwhelms the cost savings gained by removing the stiffness restraint. 
+\Comment{
+While economical alternatives have been proposed recently for  some special cases, there is a practical need for a computationally efficient approach that can be applied more broadly.
+}
+
+In this context, we revisit a robust  semi-implicit discretization introduced by Peskin in the late 70's which has received renewed attention recently. This discretization, in which the spreading and interpolation operators are lagged,  leads to  a linear system of equations for the interface configuration at the future time, provided the interfacial force is linear.  However, this linear system is large and dense and thus it is challenging to streamline its solution. Moreover, while  the same linear system or one of similar structure could potentially be used in Newton-type iterations, nonlinear and highly stiff immersed structures pose additional challenges to iterative methods. In this work,  we address these problems and propose cost-effective computational strategies  for solving Peskin's lagged-operators type of discretization. We explore methods for accelerating the computation of fluid-structure interactions, as well as a range of iterative methods that utilize the fluid-structure computation to efficiently solve the implicit system.
+
+These new methods work in a very wide range of instances, including a large class of interfacial forcing functions, Newtonian and complex fluids, and both 2D and 3D fluid domains. We show that for such applications they are nearly computationally optimal and highly stable. We demonstrate the efficacy and superiority of the methods over existing approaches with various applications.
+
+%\abstractsignature
+
+\end{abstract}

@@ -1,0 +1,71 @@
+We discretize the peristaltic pump $\B{X}$ as a collection of $N_B$ immersed points $\left\{\B{X}_j\right\}$. The position of these points are not directly prescribed, rather we construct an artificial force to approximately constrain the immersed points to their respective positions. For each point $\B{X}_j$ we define $\B{T}_j$ to be the desired target position. We then induce a force $\B{F}$ defined on immersed points given by
+\begin{equation}
+\B{F} = \sigma(\B{T} - \B{X}).
+\label{eq:Force}
+\end{equation}
+The scalar variable $\sigma$ is a numerical parameter. In the limit as $\sigma\to\Inf$ we exactly constrain $\B{X}$ to the desired configuration. In practice we take $\sigma$ to be some large value. This can lead to instability in the resulting numerical simulations. We counter this by employing a new semi-implicit methodology as detailed in~\cite{IBM_Implicit2D, IBM_Implicit3D}. With the semi-implicit method we can use values of $\sigma$ multiple orders of magnitude larger than previously possible. For the large values of $We$ and $\chi$ explored in this work we are required to take $\sigma=O(10^6)$ to maintain the structure of the pump. This large stiffness coefficient would lead to prohibitively small time-steps for previous explicit methods. In our numerical experiments our choice of $\sigma$ reduces deviations in $\B{X}$ from the target position $\B{T}$ to less than $.0005$ units, even when the normal polymeric stresses at the boundary rise to values of $1000$ and more.
+
+We briefly overview the semi-implicit method here. The method is based on a semi-implicit discretization of the Navier-Stokes equations given by
+\begin{align}
+\frac{\B{u}^{n+1}-\B{u}^n}{\Delta t} + \B{u}^n\cdot\nabla\B{u}^n &= -\B{D}_h p^{n+1}+ L_h \B{u}^{n+1} + \B{f}, \label{eq:dmoment} \\
+\B{D}_h \cdot \B{u}^{n+1} &= 0, \label{eq:ddivergence} \\
+\frac{\B{X}^{n+1}-\B{X}^n}{\Delta t} &= \C{S}^*_n\B{u}^{n+1}. \label{eq:Xt}
+\end{align}
+Here a superscript $n$ denotes a numerical approximation taken at the time $n \Delta t$ and $\Delta t$ is the timestep. The spatial operators $\B{D}_h$ and $L_h$ are the standard,  second order approximations to the gradient and the Laplacian, respectively. The convection term $\B{u}^n\cdot\nabla\B{u}^n$ is handled separately via a third-order essentially non-oscillatory (ENO) scheme.
+The force $\B{F}$ in (\ref{eq:Force}) is defined at the immersed points and can not be directly used in the fluid equations (\ref{eq:OB_momentum})-(\ref{eq:OB_stress}). First we must {\em spread} the force onto the surrounding Eulerian grid. Likewise in equation (\ref{eq:Xt}) the fluid velocity is not given at the immersed points, so we must {\em interpolate} the fluid velocity. To achieve the spreading and interpolation we define
+\begin{align}
+(\C{S}_n G) (\B{x})&= \sum_{s \in \C{G}_B }G(s) \delta_h(\B{x}-\B{X}^n(s))h_B,
+\label{eq:S} \\
+(\C{S}^*_n w)(s) &= \sum_{ \B{x} \in \C{G}_\Omega} w(\B{x})\delta_h(\B{x}-\B{X}^n(s))h^2,
+\label{eq:S*}
+\end{align}
+known as the spreading and interpolation operators, respectively.
+Here $\delta_h(\B{x}) \equiv d_h(\B{x}_0)d_h(\B{x}_1)$ is an approximation to the two-dimensional Dirac delta distribution and $d_h$ is given by
+\begin{equation}
+d_h(r) = \begin{cases}
+\frac{1}{4h}\left( 1+\cos(\frac{\pi r}{2h})\right)& \textrm{if } |r|\leq 2h, \\
+0& \textrm{otherwise}.
+\end{cases}
+\end{equation}
+We refer to these operators as lagged because the interface configuration $\B{X}^n$ is used 
+instead of the future configuration $\B{X}^{n+1}$.
+
+Utilizing $\C{S}_n$ and $\C{S}^*_n$ we now specify the form of $\B{f}$ in (\ref{eq:dmoment}).
+\begin{equation}
+\B{f} = \sigma\C{S}_n(\B{T}^{n+1} - \B{X}^{n+1}) + \beta\B{D}_h\cdot\B{S}^n,
+\end{equation}
+encapsulating both the artificial force on the immersed points, as well as the additional force coming from the polymeric stress. We thus consider the polymeric stress fixed as we update the fluid. Once we have an updated fluid velocity $\B{U}^{n+1}$ we will then calculate an updated value for the stress $\B{S}^{n+1}$.
+
+We may formally eliminate $\B{u}^{n+1}$ from the equations (\ref{eq:OB_momentum})-(\ref{eq:OB_stress}), arriving at a {\em linear} system of the form
+\begin{equation}
+\B{X}^{n+1} = \sigma\C{M}_n(\B{T}^{n+1} - \B{X}^{n+1}) + \B{b}^n, \label{eq:LagrangianSystem}.
+\end{equation}
+We refer to this as the Lagrangian system. $\C{M}_n$ is an operator acting on a force distribution $\B{F}$ and returning the resulting displacement of immersed points due to the induced fluid flow from the spread force $\C{S}_n\B{F}$. Critically, both $\C{M}_n$ and $\B{b}^n$ can be explicitly constructed in an efficient manner, yielding a $2N_B\times 2N_B$ matrix and $2N_B$ vector respectively. We detail this construction in our previous papers~\cite{IBM_Implicit2D, IBM_Implicit3D}. The resulting system can be rewritten as a simple matrix inversion problem
+\begin{equation}
+(I + \sigma\C{M}_n)\B{X}^{n+1} = \sigma \B{T}^{n+1} + \B{b}^n, \label{eq:MatrixProblem}.
+\end{equation}
+The matrix $I + \sigma\C{M}_n$ is positive-definite and the system (\ref{eq:MatrixProblem}) can be inverted in a number of ways, the most efficient being multigrid. For the present work conjugate gradient suffices to provide a nearly optimal solver. Once we have solved (\ref{eq:MatrixProblem}) for the updated configuration $\B{X}^{n+1}$ we may then calculate the updated fluid velocity via (\ref{eq:OB_momentum})-(\ref{eq:ddivergence}).
+
+\Comment{
+We note that other work done investigating the peristaltic pump via the Immersed Boundary Method has utilized staggered marker and cell (MAC) grids. While our implicit methodology easily extends to MAC grids, we instead employ a simple Eulerian grid so as to utilize a Fast Fourier Transform (FFT) based fluid solver to solve (\ref{eq:dmoment})-(\ref{eq:ddivergence}). There may be advantages to a MAC grid, however, such as better volume conservation~\cite{griffithvolume}.
+}
+
+Finally we must calculate the updated polymeric stress $\B{S}^{n+1}$. Recall the constitutive equation (\ref{eq:OB_stress}) given as $\B{S}^\nabla = -{We}^{-1}(\B{S} - \B{I})$. We discretize this in space as
+\begin{equation}
+\frac{d\B{S}}{dt} + \B{u}^{n+1}\cdot\nabla\B{S}^n
+ = \B{D}_h \B{u}^{n+1} \cdot \B{S}^n + \B{S}^n \cdot \B{D}_h(\B{u}^{n+1})^T + \frac{1}{We}(\B{I} - \B{S}^n).
+\end{equation}
+Here the convective term $\B{u}^{n+1}\cdot\nabla\B{S}^n$ is calculated via the third-order ENO scheme, as with the convection in the momentum equation (\ref{eq:dmoment}). We further discretize in time via a second-order total variation diminishing (TVD) Runge-Kutta method. If we define the Euler update operator
+\begin{equation}
+E(\B{S}) = \B{S} + \Delta t \left[\B{D}_h \B{u}^{n+1} \cdot \B{S} + \B{S} \cdot \B{D}_h(\B{u}^{n+1})^T + \frac{1}{We}(\B{I} - \B{S}) - \B{u}^{n+1}\cdot\nabla\B{S}\right],
+\end{equation}
+then our Runge-Kutta update is given as $\B{S}^{n+1} = (\B{S}^n + E(E(\B{S}^n))) / 2$.
+
+\subsection{Summary of algorithm}
+Given $\B{X}^n$, $\B{u}^n$, $\B{S}^n$ at time $t=n\Delta t$, a complete timestep may be summarized as follows
+\begin{enumerate}
+\item Calculate the fluid matrix $\C{M}_n$ and the explicit term $\B{b}^n$.
+\item Solve for the updated pump configuration $\B{X}^{n+1}$ via the matrix problem $(I + \sigma\C{M}_n)\B{X}^{n+1} = \sigma \B{T}^{n+1} + \B{b}^n$.
+\item Calculate the updated fluid velocity $\B{u}^{n+1}$ via the Stokes problem (\ref{eq:dmoment})-(\ref{eq:ddivergence}).
+\item Calculate the updated polymeric stress $\B{S}^{n+1}$ via the second-order TVD Runge-Kutta method, $\B{S}^{n+1} = (\B{S}^n + E(E(\B{S}^n))) / 2$.
+\end{enumerate}

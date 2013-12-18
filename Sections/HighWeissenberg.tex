@@ -1,0 +1,68 @@
+Large values of $We$ lead to large normal forces on the walls of the peristaltic pump. These forces in turn require large stiffness constants $\sigma$ to properly maintain the prescribed shape of the walls. Previous investigations by Teran, Fauci and Shelley~\cite{teran2008peristaltic} and Chrispell and Fauci~\cite{chrispell2010peristaltic} were limited to Weissenberg numbers $We\leq 5$. With our superior methodology we are able to investigate for the first time higher Weissenberg numbers, up to and beyond $We=100$.
+
+We investigate first the case $We=55$, $\chi=0.5$.
+In Figures~\ref{fig:TimeProgression_W55_xx} through~\ref{fig:TimeProgression_W55_vorticity} we plot the polymeric stress evolution over time, for $N=1024$ and $dt=.00025$. We note first that all components of the stress $\B{S}_{xx}, \B{S}_{xy}, \B{S}_{yy}$ develop multilayered interfaces by time $t=8.4$. As time progresses, however, these interfaces merge into smooth, simple regions. By time $t=18.9$ no indication is left of the intricate, multilayered interfaces. We suspect that this smoothing is due to the numerical diffusion inherent to the ENO convection scheme.
+
+An interesting question is how the normalized mean flow $\Theta$ responds to changes in $We$ and $\chi$. In Figure~\ref{fig:FullJaffrin} we plot $\Theta$ at time $t=15$ (Figure~\ref{fig:FullJaffrin_15}) and $t=50$ (Figure~\ref{fig:FullJaffrin_50}) for $We=0$ up to $We=105$, and for $\chi=0$ up to $\chi=0.75$. We note a modest effect of the Weissenberg number on $\Theta$, with higher values of $We$ corresponding to higher mean flows. The dependence of $\Theta$ on $t$ is more complicated. For $We\leq 5$ it appears that a semi-steady state is eventually reached. The time required to reach this semi-steady state was given to be $3We$ in~\cite{teran2008peristaltic, chrispell2010peristaltic}. When we examine the same regimes as studied in ~\cite{teran2008peristaltic, chrispell2010peristaltic} ($\chi\leq 0.5$, $We\leq 5$), we see a similar requirement.
+
+For higher $We$ we report substantially different behavior. We examine the mean flow over time in Figure~\ref{fig:FlowOverTime}. For $\chi=0.4$ and $We=5$, displayed in Figure~\ref{fig:FlowOverTime_Chi.4}, we see relatively little variation in mean flow over time, consistent with previous results. For $We\geq 25$, however, we see substantially more complex behavior. For $We=25$ the mean flow appears to become reasonably consistent after $t=70$, despite large variations. For $We=55$ and $We=105$ no semi-steady state is reached for our simulation times ($T<150$). For $\chi=0.6$ we see long term variation in the mean flow even for the small value of $We=5$. The flow appears to reach and maintain a semi-steady state for a long duration of time, from $t=20$ to $t=70$ ($50$ periods of the pump), but then has a sudden drop in mean flow at time $t=70$.
+
+Examining the structure of the stress over time we see that there is symmetry breaking in the stress field at approximately the same time as the drop in mean flow. We observe a similar break in symmetry for the other long time scale simulations. Such an instability is noted as well in~\cite{thomases2009transition}. There symmetry breaking is noted for higher Weissenberg numbers $We\geq 5$, as we observe here. We suspect that it is this instability that is preventing a semi-steady behavior from emerging in the mean flow, and expect that the behavior will not become semi-steady even for greatly longer simulations.
+
+% Full Jaffrin
+\begin{figure}
+    \centering
+\Comment{ t = 8.5
+    \subfigure[Normalized mean flow at time $t=8.5$ for various values of $We$ and $\chi$.]
+    {
+			\singlefigure{FullJaffrin/FullJaffrinVerbose_850.png}
+			\label{fig:FullJaffrin_8.5}
+    }
+}
+    \subfigure[Normalized mean flow at time $t=15$ for various values of $We$ and $\chi$.]
+    {
+			\singlefigure{FullJaffrin/FullJaffrinVerbose_1500.png}
+			\label{fig:FullJaffrin_15}
+    }
+    \subfigure[Normalized mean flow at time $t=50$ for various values of $We$ and $\chi$.]
+    {
+			\singlefigure{FullJaffrin/FullJaffrinVerbose_5000.png}
+			\label{fig:FullJaffrin_50}
+    }
+    \caption{Normalized mean flow at times $t=15$ and $t=50$ for various values of $We$ and $\chi$.}
+    \label{fig:FullJaffrin}
+\end{figure}
+
+% Over time
+\Comment{ Double figure
+\begin{figure}[p]
+\doublefigure{FullJaffrin/FullJaffrinOverTime_Chi0.4.png}{FullJaffrin/FullJaffrinOverTime_Chi0.6.png}
+\caption{Mean flow $\Theta$ over time for various values of $We$. $\chi=0.4$ and $\chi=0.6$ on the left and right respectively.}
+\label{fig:FlowOverTime_Chi.4.6}
+\end{figure}
+}
+
+\Comment{ Stacked figures }
+\begin{figure}
+    \centering
+    \subfigure[$\chi=0.4$]
+    {
+			\singlefigure{FullJaffrin/FullJaffrinOverTime_Chi0.4.png}
+			\label{fig:FlowOverTime_Chi.4}
+    }
+    \subfigure[$\chi=0.6$]
+    {
+			\singlefigure{FullJaffrin/FullJaffrinOverTime_Chi0.6.png}
+			\label{fig:FlowOverTime_Chi.6}
+    }
+\Comment{
+    \subfigure[$\chi=0.7$]
+    {
+			\singlefigure{FullJaffrin/FullJaffrinOverTime_Chi0.7.png}
+			\label{fig:FlowOverTime_Chi.7}
+    }
+}
+    \caption{\small Mean flow $\Theta$ over time for various values of $We$. Top and bottom plot are for $\chi=0.4$ and $\chi=0.6$ respectively.}
+    \label{fig:FlowOverTime}
+\end{figure}
+

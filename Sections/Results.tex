@@ -1,0 +1,31 @@
+Here we summarize the results of our numerical simulations. We first present evidence to validate our methodology and then proceed to explore the extreme parameter regimes corresponding to very large wave amplitudes (occlusions) and very large Weissenberg numbers. We observe a new rich behavior which includes the potential formation of a finite time blow-up in the Oldroyd B model.
+
+Two important values we will be observing are the flux and the normalized mean flow. We define the flux as
+\begin{equation}
+\label{eq:Flux}
+Q(x,t) = \int^{0.5+d(x,t)}_{0.5-d(x,t)}u(x,y)dy,
+\end{equation}
+which is the total mass flux within the peristaltic pump across a specified vertical line. In this work we always take $x=0.5$ and write $Q(t)=Q(x,t)$ for convenience. Closely related to the flux is the normalized mean flow, given by
+\Comment{
+\begin{equation}
+\label{eq:MeanFlow}
+\Theta = \frac{\pi}{\alpha\chi(T_2-T_1)}
+\int^{T_2}_{T_1} Q(t) dy dt.
+\end{equation}
+Here we simply average and normalize the flux over the time period $[T_1,T_2]$.}
+\begin{equation}
+\label{eq:MeanFlow}
+\Theta(t) = \frac{\pi}{\alpha\chi}
+\int^{t+1}_{t} Q(t) dt.
+\end{equation}
+Here we simply average and normalize the flux over one period of the peristaltic pump. The normalization leads to a dimensionless value, and is chosen such that $\Theta=1$ when $\chi=1$, regardless of the nature of the underlying fluid.
+
+\Comment{
+\begin{equation}
+\label{eq:MeanFlowExpanded}
+\Theta = \frac{\pi}{\alpha\chi(T_2-T_1)}
+\int^{T_2}_{T_1} 
+\int^{0.5+d(x,t)}_{0.5-d(x,t)}u(x,y)dy
+ dt
+\end{equation}
+}

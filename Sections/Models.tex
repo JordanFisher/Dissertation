@@ -1,0 +1,40 @@
+We consider a peristaltic pump immersed in a period 2D domain $\Omega=[0,1]^2$.
+We model the peristaltic pump as two disconnected sinusoidal curves,
+\begin{equation}
+\B{X}(t) =
+\label{eq:Pump2D}
+\left\{
+\left(\xi, \frac{1}{2} + d(\xi,t)\right) \Big{|} \xi\in[0,1]
+\right\}
+\cup
+\left\{
+\left(\xi, \frac{1}{2} - d(\xi,t)\right) \Big{|} \xi\in[0,1]
+\right\}
+\end{equation}
+where
+\begin{equation}
+\label{eq:d}
+d(x,t) = \frac{\alpha}{2\pi}[1 + \chi \sin 2\pi(\xi - t)].\\
+\end{equation}
+Both the spatial and temporal period of the pump is fixed at $1$. As time progresses the waves of peristalsis move from left to right, forcing the fluid to flow to the right (in aggregate). The parameter $\chi$ represents the occlusion ratio of the pump. The value $\chi=0$ corresponds to a straight channel , with no waves of peristalsis, while $\chi=1$ correspond to a completely occluded channel, with the peaks of each sinusoidal curve meeting at some point along the horizontal line $y=1/2$. The parameter 
+$\alpha$ controls  the aspect ratio of the channel. For this work we fix $\alpha=1.5$.
+
+We model the interior and exterior of the valve as one continuous Oldroyd B (OB) incompressible fluid. The interaction between the valve and the fluid is captured via the Immersed Boundary Method. The continuous equations are then
+\begin{align}
+Re \left(\frac{\partial \B{u}}{\partial t} + \B{u}\cdot\nabla\B{u} \right) &= -\nabla p +  \nabla^2 \B{u} + \beta\nabla\cdot\B{S} + \B{f}, \label{eq:OB_momentum}\\ 
+\nabla \cdot \B{u} &= 0, \label{eq:OB_incompressibility}\\
+\frac{\partial \B{X}}{\partial t}  &= \B{u}(\B{X},t), \label{eq:OB_noslip}\\
+\B{S}^\nabla &= -{We}^{-1}(\B{S} - \B{I}). \label{eq:OB_stress}
+\end{align}
+Here $\B{f}$ can be seen as a Lagrange multiplier used to enforce the prescribed motion of the peristaltic waves. Due to the no slip boundary condition (\ref{eq:OB_noslip}) we can only modulate $\B{X}$ by modifying the fluid velocity $\B{u}$. In practice,  we will only enforce the prescribed position of $\B{X}$ approximately by taking $\B{f}$ to be  a very stiff force binding the current configuration $\B{X}$ to the desired prescribed position given by (\ref{eq:Pump2D}).
+
+In (\ref{eq:OB_momentum}), $Re$ is the Reynolds number which is a measure of the viscous dissipation relative to inertial forces. The dimensionless term $\beta$  specifies the strength of the viscoelastic force $\nabla\cdot\B{S}$. Here, $\B{S}$ is the deviatoric part of of the viscoelastic stress tensor and evolves according to the OB constitutive equation, given in (\ref{eq:OB_stress}). $\B{S}^\nabla$ denotes the upper convected derivative of $\B{S}$, namely
+\begin{equation}
+\B{S}^\nabla = \frac{d\B{S}}{dt} + \B{u}\cdot\nabla\B{S} - \nabla \B{u} \cdot \B{S} - \B{S} \cdot \nabla\B{u}^T.
+\end{equation}
+ $We$ is a dimensionless parameter giving the ratio of the relaxation time of the polymeric stress $\B{S}$ against some characteristic time scale of the fluid. $We$ is referred to as the Weissenberg number of the fluid. In the limit as $We\to 0$ the polymeric stress is fixed as the identity tensor $\B{I}$ and the fluid becomes Newtonian. In general the larger the value of $We$ the larger the non-Newtonian effect on the fluid.
+
+Finally, the product $\beta We$ is the ratio of the polymeric viscosity to the solvent viscosity. Following Teran, Fauci, Shelly~\cite{teran2008peristaltic}
+we fix $\beta We=\frac{1}{2}$. As mentioned above, we choose the characteristic length scale to be $1$, the width of our fluid domain $\Omega$ and the characteristic timescale we also take it  to be $1$, the period of the peristaltic pump. We fix the Reynolds number of our fluid at $Re=1$. Throughout this work the only fluid parameter we change is the Weissenberg number $We$.
+
+

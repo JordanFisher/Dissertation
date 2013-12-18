@@ -1,0 +1,64 @@
+Previous investigations utilizing the IB method to study peristaltic pumping have been limited to occlusions $\chi \leq 0.5$. With
+our implicit methodology we are able to explore for the first time occlusions in the range $0.5 < \chi <1$ which induce extremely large polymeric stress forces  on the peristaltic pump. Here we focus specifically on the case $\chi=0.8$ and $We=5$.
+
+In Figures~\ref{fig:TimeProgression_Chi.8_xx} through~\ref{fig:TimeProgression_Chi.8_vorticity} we plot the polymeric stress evolution over time, for $N=1024$ and $\Delta t=0.00025$. We see first that the $xx$ component of stress develops a strong concentration at the channel's neck, reaching a value of $360$ at time $t=0.5$. Soon after, at time $t=1.5$, the $xx$-component is further concentrated into a nearly horizontal line, reaching a peak value of $18000$. The two additional components $\B{S}_{xy}$ and $\B{S}_{yy}$ develop strong interfaces in identical locations, reaching values of $2400$ and $6400$ respectively. These strong interfaces effectively block off the inner interior of the peristaltic pump from any outside influences. This can be clearly seen in the vorticity plot, where the vorticity inside the interfaces is nearly zero. Outside the interfaces, near the boundary of peristaltic pump, we see strong, nearly uniform vorticity. As time progresses further, up to $t=4.5$, we see the formation of more complex localized structures which again have strong effects on the vorticity. These fine structures eventually leads to instabilities and we are unable to reliably compute for longer than $t=7$ for $N\geq 512$.
+
+An important observation is that the strong thin line observed in the $xx$-component of the stress at time $t=1.5$ dissipates over time and is significantly weaker at time $t=4.5$. We suspect that this dissipation is due to numerical diffusion inherent to the ENO advection scheme. To investigate this further we perform a resolution study, focusing on the peak value of $\B{S}_{xx}$ over the time interval $t=0$ to $t=1.5$.
+
+First, in Figure~\ref{fig:Chi8Study_supmid} we plot $\B{S}_{xx}$ over time for values of $N$ ranging from $N=256$ to $N=2048$. We see that there is fast, nearly exponential growth, that levels off near $t=1.5$. As $N$ increases the maximum stress increases as well. We analyze the dependence on $N$ in Figure~\ref{fig:Chi8Study_log}. Here we plot $\norm{\B{S}_{xx}}_{\Inf}$ at $t=1.25$ versus $\log N$. We see that $\norm{\B{S}_{xx}}_{\Inf}$ grows almost exactly proportional to $\log N$, yielding the approximate formula
+%$\norm{\B{S}_{xx}}_{\Inf} \approx 5286\log N$.
+\begin{equation}
+\norm{\B{S}_{xx}}_{\Inf} \approx 5286\log N.
+\label{eq:ApproxGrowth}
+\end{equation}
+It is unclear if the relationship (\ref{eq:ApproxGrowth}) persists for arbitrarily large $N$. If this were the case then it would be evidence for a finite time blow up in the Oldroyd-B model for peristaltic pumping. To provide additional evidence we attempt to fit an exponential growth model of the form $C_Ne^{\beta_N t}$ to the stress $\norm{\B{S}_{xx}}_{\Inf}$ over the time interval $(0.36,0.70)$. For $N=2048$ the best fit is given by $C=10, \beta=7.68$. The fit is qualitatively good, as seen in Figure~\ref{fig:Chi8Study_GrowthFit_Exponential}. We proceed to compute the best fit for various values of $N$ and investigate the sequence $\{\beta_N\}$. In Figure~\ref{fig:Chi8Study_GrowthFitVsN_C_beta} we plot $\beta_N$ with respect to $\log N$ and notice a distinct linear trend. A linear fit yields $\beta_N\approx 0.3533\log N$. We thus again see sharper growth as $N\to\Inf$. This apparently unbounded behavior for the exponent points in the direction of a potential finite-time singularity in the polymeric stress. 
+
+The simulation for $\chi=0.8$ is very challenging, involving very large stress and equally large restorative forces from the immersed structure. Very sharp interfaces develop in both the vorticity and stress. We present evidence that we are properly resolving these sharp interfaces. In Figure~\ref{fig:Chi8Compare} we plot a simulation at time $t=1.5$ for the case $\chi=0.8, We=5$. We compare the vorticity fields for both $N=512$ and $N=1024$ and note that the structure is qualitatively identical. Closer examination of the $N=512$ plot reveals slightly blurred interfaces, indicative of the greater numerical diffusion at lower resolutions. We observe similar results when we investigate the stress $\B{S}$. We look at the Newtonian case in Figure~\ref{fig:Chi8Compare_Newtonian} and note that the vorticity is well resolved. Indeed, we have observed that for the Newtonian case the vorticity is well resolved even for substantially lower resolutions, down to $N=256$. The difference between the vorticity distributions of Newtonian and viscoelastic cases is striking. 
+\input
+
+\input{Figures/Chi.8_Compare}
+
+
+\Comment{
+We provide a simple linear analysis to suggest otherwise.
+
+Suppose that the maximum value of $\B{S}_{xx}$ at time $t$ occurs at position $\B{x}(t)$, and that this location is fixed, save for convection due to the fluid. We note that for the time range we are considering this is indeed what we observe. Then, for very large $S\equiv\B{S}_{xx}(\B{x})$, the OB constitutive equation for $S$ should be approximated well by
+\begin{equation}
+\frac{dS}{dt} \approx \frac{\partial u}{\partial x}S + \frac{1}{We}[1-S],
+\end{equation}
+where we have dropped the convection term since $\B{x}$ is convected with the fluid, and we have dropped the $\partial u / \partial y$ term because it is zero along the horizontal line $y=0.5$ due to symmetry. We empirically observe that $\partial u / \partial x \gg 1/We$, and, furthermore, that $\partial u / \partial x$ remains relatively close to some constant $C$. Thus for large $S$ we have that $dS/dt \approx CS$ yielding simple exponential growth. While this growth would not lead to finite time blow ups, it does not appear that any term in the constitutive equation (\ref{eq:OB_stress}) can ever balance the growth of $S$, thus we still expect $S\to\Inf$ as $t\to\Inf$, an unphysical result.
+}
+
+
+% \Chi = .8 study
+\begin{figure}
+    \centering
+    \subfigure[$\norm{\bar{S}_{xx}(t)}_\Inf$ over the time interval $(0,1.5)$ for various values of $N$.]
+    {
+			\singlefigure{Chi.8_Study/Chi.8_supmid.png}
+			\label{fig:Chi8Study_supmid}
+    }
+    \subfigure[$\norm{\bar{S}_{xx}(t)}_\Inf$ at time $t=1.25$, plotted against $-\log h$, as $N$ varies from $256$ to $2048$. Dashed line is a linear fit with slope $m=5286$]
+    {
+			\singlefigure{Chi.8_Study/Chi.8_T1.25_log.png}
+			\label{fig:Chi8Study_log}
+    }
+    \caption{Resolution study of the sup norm of the stress component $S_{xx}$ along the horizontal line of symmetry, denoted as $\norm{\bar{S}_{xx}(t)}_\Inf$ at time $t$.}
+    \label{fig:Chi8Study}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \subfigure[$\norm{\bar{S}_{xx}(t)}_\Inf$ over the time interval $(0.36,0.70)$ for $N=2048$. Matched fit is the exponential curve $10e^{7.68t}$.]
+    {
+			\singlefigure{Chi.8_Study/Chi.8GrowthFit_Exponential.png}
+			\label{fig:Chi8Study_GrowthFit_Exponential}
+    }
+    \subfigure[$\beta_N$ $(\circ)$ and $C_N$ $(\square)$ with respect to $\log N$. The solid line is a linear fit with slope $m=0.3533$]
+    {
+			\singlefigure{Chi.8_Study/Chi.8GrowthFitVsN_C_beta.png}
+			\label{fig:Chi8Study_GrowthFitVsN_C_beta}
+    }
+    \caption{Consider $\norm{\bar{S}_{xx}(t)}_\Inf$ over the timer interval $(0.36,0.70)$ for a specified resolution $N$. We compute a best fit of the form $C_Ne^{\beta_N t}$, in the $L^2$ sense.}
+\end{figure}

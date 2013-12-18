@@ -1,0 +1,36 @@
+\clearpage
+
+\begin{figure}
+\doublefigure{Chi.8_N512/_3000/_vorticity.png}{Chi.8/_6000/_vorticity.png}
+\caption{A comparison of the vorticity for a valve with $\chi=.8$ and $We=5$  at time $t=1.5$ for $N=512$ and $N=1024$ on the left and right respectively.}
+\label{fig:Chi8Compare}
+\end{figure}
+
+\singlefigureall
+{Chi.8_Newtonian/_3000/_vorticity.png}
+{Vorticity for a valve with occlusion $\chi=.8$ in a Newtonian flow at time $t=1.5$.}
+{Chi8Compare_Newtonian}
+
+
+\Comment{
+\begin{figure}
+    \centering
+    \subfigure[$N=1024, We=5$]
+    {
+			\singlefigure{Chi.8/_6000/_vorticity.png}
+			\label{fig:Chi8Compare_1024}
+    }
+    \subfigure[$N=512, We=5$]
+    {
+			\singlefigure{Chi.8_N512/_3000/_vorticity.png}
+			\label{fig:Chi8Compare_512}
+    }
+    \subfigure[$N=1024$, Newtonian]
+    {
+			\singlefigure{Chi.8_Newtonian/_3000/_vorticity.png}
+			\label{fig:Chi8Compare_Newtonian}
+    }
+    \caption{A comparison of the vorticity for a valve with occlusion $\chi=.8$ at time $t=1.5$. For $We=5$ we look at $N=512$ and $N=1024$. For the Newtonian case we look at $N=1024$.}
+    \label{fig:Chi8Compare}
+\end{figure}
+}

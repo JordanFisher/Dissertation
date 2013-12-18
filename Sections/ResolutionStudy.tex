@@ -1,0 +1,47 @@
+We seek to validate our simulations through two approaches, by performing a spatial resolution study as well as by comparing simulations to known analytical results.
+
+For the resolution study we consider the case when $\chi=0.25$ and $We=1$. We fix the time-step $\Delta t=0.00025$ and run the simulation for a range of $N$ from $N=256$ up to $N=2048$. We consider the $N=2048$ run as our reference solution ("exact")
+and compute the errors of the other simulations in relation to this $N=2048$ case. The results are given in Figure~\ref{fig:ResolutionStudy}. In Figure~\ref{fig:ResolutionStudy_flow} we examine the difference in flow $Q$ at time $t=1$. We observe less than a $1\%$ relative error in $Q$ for $N \geq 1024$. In Figure~\ref{fig:ResolutionStudy_supS} we consider the sup norm of the difference of the $xx$-component of the stress. In both cases we observe slightly better than first order convergence, as expected from the convergence of the IB method. 
+
+There is a known analytic approximation of the mean flow $\Theta$ for the case of a Newtonian Stokes flow ($Re=0$ and $We=0$) due to Jaffrin and Shapiro~\cite{jaffrin1971peristaltic}. The formula is given as
+\begin{equation}
+\label{eq:Jaffrin}
+\Theta_J = \frac
+{15\chi^2 + 2\alpha^2[4(1-\chi^2)^{5/2} + (7\chi^2-4)(1-\chi^2)]}
+{\chi[5(2+\chi^2) + 6\alpha^2\chi^2(1-\chi^2)]}
+\end{equation}
+In the Newtonian Stokes case $\Theta$ is a constant, thus the time of evaluation is not important so long as $T\geq 1$. In contrast our Navier-Stokes fluid has convection and takes a finite amount of time ($t < 1$) to reach a steady state. We take $t=1$ and calculate $\Theta$ for a full range of $\chi$, from $0$ up to $0.95$. We note that as $\chi\to 1$ the normal stresses on the walls of the pump become enormous. While the value $\sigma=10^6$ is sufficient for $\chi=0.95$, we note that for the case $\chi=1$ even the extremely large value $\sigma=10^8$ is insufficient to maintain the shape of the pump. In this extreme case the implicit methodology remains stable but the distortion of the geometry is great enough to warrant omitting the calculated mean flow.
+
+The comparison of our simulated results, which have been checked under time and space refinement,  to Jaffrin and Shapiro's formula can be seen in Figure~\ref{fig:Jaffrin}. We see reasonably good agreement. We note, however, that for small to moderate occlusion ratios,  the Stokes-OB results in~\cite{teran2008peristaltic}  and our own results from explicit simulations provide slightly better agreement with the analytic formula. From our experience,  we tend to believe that this small difference might be attributed to the somewhat better volume conservation of the explicit method. Importantly, however, explicit simulations for the cases when $\chi>0.5$ become impractical. 
+
+
+% Resolution study
+\Comment{
+\begin{figure}[p]
+\begin{center}
+\doublefigure{ResolutionStudy/ResolutionStudy_flow_vs_N_log.png}
+\doublefigure{ResolutionStudy/ResolutionStudy_supS_vs_N_log.png}
+\end{center}
+\caption{\small .}
+\label{fig:ResolutionStudy}
+\end{figure}
+}
+
+\begin{figure}
+    \centering
+    \subfigure[Error of normalized flow $|Q - \tilde{Q}|$, $m=-1.479$.]
+    {
+			\singlefigure{ResolutionStudy/ResolutionStudy_flow_vs_N_log.png}
+			\label{fig:ResolutionStudy_flow}
+    }
+    \subfigure[Error of maximum stress $\norm{S_{xx} - \tilde{S}_{xx}}_\Inf$, $m=-1.800$.]
+    {
+			\singlefigure{ResolutionStudy/ResolutionStudy_supS_vs_N_log.png}
+			\label{fig:ResolutionStudy_supS}
+    }
+    \caption{Spatial resolution study for decreasing values of $h$. Value specified is plotted against $h$ in a log-log plot. Variables with a tilde, $\tilde{\Box}$, refer to values coming from an $N=2048$ simulation taken to be an exact solution. Dashed lines are linear fits with specified slope $m$.}
+    \label{fig:ResolutionStudy}
+\end{figure}
+
+% Jaffrin's curve and comparison
+\singlefigureall{FullJaffrin/Jaffrin.png}{Normalized mean flow calculated both via Jaffrin and Shapiro's formula and numerical simulation for the full range of $\chi=0$ to $\chi=1$.}{Jaffrin}

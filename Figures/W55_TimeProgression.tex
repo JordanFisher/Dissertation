@@ -1,0 +1,39 @@
+\clearpage
+
+\newcommand{\threeplotW}[1]{
+\onethirdtopspace
+\begin{center}
+\onethirdfigure{W55/_2800/#1}
+\onethirdspace
+\onethirdfigure{W55/_16800/#1}
+\onethirdspace
+\onethirdfigure{W55/_37800/#1}
+\end{center}
+\onethirdbottomspace
+}
+
+\renewcommand{\tvalues}{$t=1.4$, $t=8.4$, $t=18.9$}
+
+\begin{figure}[p]
+\threeplotW{_xx.png}
+\caption{\small $S_{xx}$ at times \tvalues.}
+\label{fig:TimeProgression_W55_xx}
+\end{figure}
+
+\begin{figure}[p]
+\threeplotW{_xy.png}
+\caption{\small $S_{xy}$ at times \tvalues.}
+\label{fig:TimeProgression_W55_xy}
+\end{figure}
+
+\begin{figure}[p]
+\threeplotW{_yy.png}
+\caption{\small $S_{yy}$ at times \tvalues.}
+\label{fig:TimeProgression_W55_yy}
+\end{figure}
+
+\begin{figure}[p]
+\threeplotW{_vorticity.png}
+\caption{\small Vorticity of the fluid velocity at times \tvalues.}
+\label{fig:TimeProgression_W55_vorticity}
+\end{figure}
